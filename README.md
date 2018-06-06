@@ -9,6 +9,6 @@ The HT Issue tracker provides a plug capability to the Harry Tools investment ma
 + backend admin portal
 
 
-# Initial Configution
+# Initial Configuration
 
 Django app is named ht_issue
