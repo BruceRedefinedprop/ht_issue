@@ -12,3 +12,12 @@ The HT Issue tracker provides a plug capability to the Harry Tools investment ma
 # Initial Configuration
 
 Django app is named ht_issue
+
+
+
+
+
+
+## Credit card Stripe Test
+
+4242 4242 4242 4242
