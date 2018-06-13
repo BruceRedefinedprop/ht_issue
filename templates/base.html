@@ -36,7 +36,14 @@
                         <li><a href="{% url 'register' %}"><i class="fa fa-user-plus"></i> Register</a></li>
                         <li><a href="{% url 'login' %}"><i class="fa fa-sign-in"></i> Log In</a></li>
                     {% endif %}
-
+                    <li>
+                        <a href="{% url 'view_cart' %}">
+                            <i class="fa fa-shopping-cart"></i> Cart
+                            {% if product_count > 0 %}
+                            <label class="badge badge-warning">{{ product_count }}</label>
+                            {% endif %}
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -52,7 +59,10 @@
     {% endif %}
     <div class="container">
         <div class="display">
-
+            <form action="{% url 'search' %}" method="get">
+                <input type="text" name="q">
+                <button type="submit">Search</button>
+            </form>
         </div>
         {% block content %} {% endblock %}
     </div>
