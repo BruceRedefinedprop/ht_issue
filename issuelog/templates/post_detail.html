@@ -1,0 +1,48 @@
+{% extends "base.html" %} {% load gravatar %} {% block content %}
+    <div class="row">
+    <div class="col-md-2 col-sm-3 text-center">
+        <div class="story-img">
+            <img src="{% gravatar_url post.author.email %}" class="img-circle">
+        </div>
+        <p><span class="boldtext">Author: </span> {{ post.author }}</p>
+        <p><span class="boldtext">Views:</span> {{ post.rating }}</p>
+        <p><span class="boldtext">Tag:</span> {{ post.tag }}</p>
+    </div>
+    <div class="col-md-10 col-sm-9">
+        {% if post.image %}
+        <img class="img-blogpost" src="{{ MEDIA_URL }}{{ post.image }}"> {% endif %}
+        <h3>{{ post.title }}</h3>
+        <div class="row">
+            <div class="col=xs-12">
+                <p> {{ post.content }}</p>
+                <p><span class="boldtext">Published on: </span>{{ post.published_date }} </p>
+                <a href="{% url 'get_posts' %}" class="btn btn-default">Back To Blog</a>
+                <a href="{% url 'edit_post' post.id %}" class="btn btn-default">Edit Post</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                {% with post.comment_set.all.count as total_comments %}
+                <h4 id="comments">{{ total_comments }} comment{{ total_comments|pluralize }}</h4>
+                {% endwith %} {% for comment in post.comment_set.all %}
+                <div class="col-xs-12 commentsection">
+                    <div class="col-sm-2 col-xs-12">
+                        <div class="story-img">
+                            <img src="{% gravatar_url post.author.email %}" class="img-circle-comment">
+                        </div>
+                        <p>{{ comment.author }}</p>
+                    </div>
+                    <div class="col-sm-10 col-xs-12">
+                        <p>{{comment.comment}}</p>
+                        <p class="italictext">Posted on: {{ comment.comment_created_date }}</p>
+                        {% if comment.author == user %}
+                        <a href="{% url 'edit_comment' comment.pk %}" class="btn btn-default">Edit this comment</a> {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+                <a href="{% url 'new_comment' %}" class="btn btn-default">Post new comment</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

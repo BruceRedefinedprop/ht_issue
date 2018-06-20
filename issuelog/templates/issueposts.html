@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load gravatar %}
+{% block content %}
+    {% for post in posts %}
+        <div class="row">
+            <div class="col-md-2 col-sm-3 text-center">
+                <div class="story-img">
+                    <img src="{% gravatar_url post.author.email %}" class='img-circle' ></img>
+                </div>
+                <p><span class="boldtext">Author:</span> {{ post.author }}</p>
+                <p><span class="boldtext">Rating:</span> {{post.rating}} / {{post.votes}}</p>
+                <p><span class="boldtext">Tag:</span> {{ post.tag }}</p>
+            </div>
+            <div class="col-md-10 col-sm-9">
+                <h3>{{ post.title }}</h3>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <p>{{ post.content|truncatewords:30 }}</p>
+                        <p><a href="{% url 'post_detail' post.id %}" class="btn btn-default">Read more</a></p>
+                        <p><span class="boldtext">Published on: </span>{{ post.published_date }} </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    {% endfor %}
+{% endblock %}

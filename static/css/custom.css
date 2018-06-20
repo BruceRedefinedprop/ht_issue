@@ -15,6 +15,9 @@ footer {
     background-color: #fff;
 }
 
+
+
+
 .accountform {
     padding-top: 20px;
 }
@@ -26,6 +29,13 @@ footer {
     -moz-border-radius: 9px;
     border-radius: 9px;
 }
+
+
+.img-circle{
+    width: 100px;
+    height: 100px; 
+}
+
 
 .label-warning[href],
 .badge-warning[href] {
@@ -63,4 +73,20 @@ caption p {
 
 .product-description {
     min-height: 40px;
+}
+
+.story-img {
+    margin-top: 5%;
+    margin-bottom: 5%;
+    display: block;
+}
+
+.img-blogpost{
+    height: 300px;
+    width: auto;
+}
+
+.commentsection{
+    padding: 10px 0px;
+    border-bottom: 1px solid #ededed;
 }

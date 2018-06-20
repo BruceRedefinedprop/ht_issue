@@ -22,16 +22,19 @@ from products import urls as urls_products
 from cart import urls as urls_cart
 from search import urls as urls_search
 from checkout import urls as urls_checkout
+from issuelog import urls as urls_issuelog
 from products.views import all_products
 from django.views import static
 from .settings import MEDIA_ROOT
-
+from django.views.generic import RedirectView
+from django.views.generic import RedirectView
 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include(urls_accounts)),
     url(r'^home/', include(urls_home)),
+    url(r'^issue/', include(urls_issuelog)),
     url(r'^$', all_products, name="index"),
     url(r'^products/', include(urls_products)),
     url(r'^cart/', include(urls_cart)),
