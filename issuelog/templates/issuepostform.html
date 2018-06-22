@@ -1,64 +1,30 @@
-{% extends "base.html" %} 
-{% load static %} 
-{% load bootstrap_tags %} 
-{% block js %}
-<script type="text/javascript" src="{% static 'js/moment.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/bootstrap-datetimepicker.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/issuepostform.js' %}"></script>
+{% extends "base.html" %}
+{% load bootstrap_tags %}
+{% block head_js %}
+
+    {{ form.media }}
+
 {% endblock %} 
 
 {% block content %}
-
-    <h1>Create or edit a post </h1>
-     <h3>{{ title }}</h3>
+    <h1>Create or edit a comment</h1>
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        <div id="div_id_title" class="form-group  ">
-            <label for="id_title" class="control-label required-field ">
-                Title  
+        {{ form | as_bootstrap }}
+        <div id="div_rating_val" class="form-group  ">
+            <label for="id_rating_val" class="control-label  ">
+                Rating  {{ rate }}
             </label>
             <div class="">
-                <input type="text" name="title" required id="id_title" maxlength="200" class=" form-control" value= "{{ form.title.value  }}" />
+                <select name="rating" id="rating" >
+                    <option value=1 {% if rate <= 2 %} selected  {% endif %}> Minor </option> 
+                   
+                    <option value=3 {% if rate > 2 and rate <= 3.5   %}  selected  {% endif %}> Good to have </option>
+                    <option value=5 {% if rate >  3.5   %} selected  {% endif %}> Must have </option>
+                </select>  
             </div>
-            
-        </div>
-        <div id="div_id_content" class="form-group  ">
-            <label for="id_content" class="control-label required-field ">
-                Content
-            </label>
-            <div class="">
-                <textarea name="content" rows="10" required cols="40" id="id_content" class=" form-control"  >
-                </textarea>
-            </div>
-        </div>
-        <div id="div_id_published_date" class="form-group  ">
-            <label for="id_published_date" class="control-label required-field ">
-                Published date
-            </label>
-            <div class="input-group date">
-                <input type="text" name="published_date" required id="datetimepicker1" class=" form-control" value= "{{ form.published_date.value }}" />
-                <span class="input-group-addon" id="datetimepicker1">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                </span>
-            </div>
-        </div>
-        <div id="div_id_image" class="form-group  ">
-            <label for="id_image" class="control-label  ">
-                Image
-            </label>
-            <div class="">
-                <input type="file" name="image" id="id_image" class=" form-control"  value= "{{ form.image.value }}" />
-            </div>
-        </div>
-        <div id="div_id_tag" class="form-group  ">
-            <label for="id_tag" class="control-label  ">
-                Tag
-            </label>
-            <div class="">
-                <input type="text" name="tag" id="id_tag" maxlength="30" class=" form-control" value="{{ form.tag.value  }}" />
-            </div>
+            <p>minor = 1, must have = 5</p>
         </div>
         <button type="submit" class="btn btn-info">Save</button>
     </form>
-
 {% endblock %}

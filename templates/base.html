@@ -14,8 +14,7 @@
     {% block head_js %}
     {% endblock head_js %}
 </head>
-<body>
-    <!-- Fixed masthead -->
+<body>    <!-- Fixed masthead -->
     <nav class="navbar navbar-masthead navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -58,12 +57,12 @@
         </div>
     {% endif %}
     <div class="container">
-        <div class="display">
-            <form action="{% url 'search' %}" method="get">
-                <input type="text" name="q">
-                <button type="submit">Search</button>
-            </form>
-        </div>
+        <!--<div class="display">-->
+        <!--    <form action="{% url 'search' %}" method="get">-->
+        <!--        <input type="text" name="q">-->
+        <!--        <button type="submit">Search</button>-->
+        <!--    </form>-->
+        <!--</div>-->
         {% block content %} {% endblock %}
     </div>
     <footer>

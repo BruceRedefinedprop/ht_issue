@@ -31,15 +31,25 @@ def create_or_edit_post(request, pk=None):
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user  # update for data
+            post.rating = request.POST["rating"]
             form.save()  # save form to DB
+            print("reached save")
+            print("rating value: {0}".format(request.POST["rating"]))
             return redirect(post_detail, post.pk)
         else:
+            print("being redirect without saving")
             return redirect(get_posts)
     elif post:
+            print('post being edited')
             print("elif post")
             print("{0}--{1}--{2}".format(post.id, post.title, post.content))
+            print(post.rating)
             form = IssuePostForm(data = {'title': post.title, 'content': post.content, 'published_date': post.published_date, 'tag' : post.tag, 'image': post.image}, instance=post)  
+            return render(request, 'issuepostform.html', {'form': form, 'rate' : post.rating })    
+            
     else:
+            # new post
+            print('new post')
             form = IssuePostForm()
     return render(request, 'issuepostform.html', {'form': form})    
     

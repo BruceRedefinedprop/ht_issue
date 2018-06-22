@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.core.validators import MaxValueValidator, MinValueValidator
+from choices import ISSUE_TAG_CHOICES, ISSUE_STATUS_CHOICES
 
 # Create your models here.
 
@@ -22,15 +23,15 @@ class Post(models.Model):
     author = models.ForeignKey('auth.User')
     title = models.CharField(max_length=200)
     content = models.TextField(blank=True)
-    created_date = models.DateTimeField(auto_now_add=True)
-    published_date = models.DateTimeField(blank=True, null=True, default=timezone.now)
+    created_date = models.DateField(auto_now_add=True)
+    published_date = models.DateField(blank=True, null=True, default=timezone.now)
     votes = models.IntegerField(default=0)
-    rating = models.IntegerField(default=0)
-    tag = models.CharField(max_length=10, default="bug")
+    rating = models.DecimalField(max_digits=4, decimal_places=1, default=0)
+    tag = models.CharField(max_length=10, choices=ISSUE_TAG_CHOICES, default="bug")
     image = models.ImageField(upload_to="img", blank=True, null=True)
     tag_edit = models.BooleanField(default=True)
     content_edit = models.BooleanField(default=True)
-    post_status = models.CharField(max_length=10)
+    post_status = models.CharField(max_length=10, choices=ISSUE_STATUS_CHOICES, default="open")
     
     def __str__(self):
         return "{0}-{1}-{2}".format(self.title, self.tag, self.post_status)

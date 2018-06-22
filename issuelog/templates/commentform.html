@@ -1,10 +1,26 @@
 {% extends "base.html" %}
 {% load bootstrap_tags %}
+
+
+
 {% block content %}
     <h1>Create or edit a comment</h1>
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form | as_bootstrap }}
+        <div id="div_rating_val" class="form-group  ">
+            <label for="id_rating_val" class="control-label  ">
+                Issue Rating  {{ rate }}
+            </label>
+            <div class="">
+                <select name="rating" id="rating" >
+                    <option value=1 {% if rate <= 2 %} selected  {% endif %}> Minor </option> 
+                    <option value=3 {% if rate > 2 and rate <= 3.5   %}  selected  {% endif %}> Good to have </option>
+                    <option value=5 {% if rate >  3.5   %} selected  {% endif %}> Must have </option>
+                </select>  
+            </div>
+            <p>minor = 1, must have = 5</p>
+        </div>
         <button type="submit" class="btn btn-info">Save</button>
     </form>
 {% endblock %}

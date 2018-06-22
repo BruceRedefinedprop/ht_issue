@@ -1,0 +1,74 @@
+{% extends "base.html" %} 
+{% load static %} 
+{% load bootstrap_tags %} 
+{% load bootstrap3 %}
+
+
+
+
+{% block head_js %}
+<script type="text/javascript" src="{% static 'js/moment.min.js' %}"></script>
+    <!--<script type="text/javascript" src="{% static 'js/bootstrap-datetimepicker.js' %}"></script>-->
+    <!--<script type="text/javascript" src="{% static 'js/blogpostform.js' %}"></script>-->
+    {{ form.media }}
+
+{% endblock %} 
+
+{% block content %}
+
+    <h1>Create or edit a post </h1>
+     <h3>{{ title }}</h3>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div id="div_id_title" class="form-group  ">
+            <label for="id_title" class="control-label required-field ">
+                Title  
+            </label>
+            <div class="">
+                <input type="text" name="title" required id="id_title" maxlength="200" class=" form-control" value= "{{ form.title.value  }}" />
+            </div>
+        </div>
+        <div id="div_id_content" class="form-group  ">
+            <label for="id_content" class="control-label required-field ">
+                Content
+            </label>
+            <div class="">
+                <textarea name="content" rows="10" required cols="40" id="id_content" class=" form-control"  >
+                </textarea>
+            </div>
+        </div>
+        <div id="div_id_published_date" class="form-group  ">
+            <label for="id_published_date" class="control-label required-field ">
+                Published date
+            </label>
+            <div class="input-group date">
+                <input type="text" name="published_date" class=" form-control" value= "{{ form.published_date.value }}" />
+                <span class="input-group-addon" >
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+       
+        </div>
+        <div id="div_id_image" class="form-group  ">
+            <label for="id_image" class="control-label  ">
+                Image
+            </label>
+            <div class="">
+                <input type="file" name="image" id="id_image" class=" form-control"  value= "{{ form.image.value }}" />
+            </div>
+        </div>
+        <div id="div_id_tag" class="form-group  ">
+            <label for="id_tag" class="control-label  ">
+                Tag
+            </label>
+            <div class="">
+                <select name="tag" id="id_tag" value="{{ form.tag.value  }}">
+                    <option value="bug"> bug </option> 
+                    <option value="feature"> feature </option>
+                </select>  
+            </div>
+        </div>
+        <button type="submit" class="btn btn-info">Save</button>
+    </form>
+
+{% endblock %}

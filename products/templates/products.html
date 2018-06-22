@@ -1,5 +1,10 @@
 {% extends 'base.html' %} {% block content %}
-
+<div class="display">
+    <form action="{% url 'search' %}" method="get">
+        <input type="text" name="q">
+        <button type="submit">Search</button>
+    </form>
+</div>
 <div class="row row-flex">
     {% for product in products %}
 
