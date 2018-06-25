@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.core.validators import MaxValueValidator, MinValueValidator
-from choices import ISSUE_TAG_CHOICES, ISSUE_STATUS_CHOICES
+from choices import ISSUE_TAG_CHOICES, ISSUE_STATUS_CHOICES, PRODUCT_CHOICES
 
 # Create your models here.
 
@@ -32,6 +32,7 @@ class Post(models.Model):
     tag_edit = models.BooleanField(default=True)
     content_edit = models.BooleanField(default=True)
     post_status = models.CharField(max_length=10, choices=ISSUE_STATUS_CHOICES, default="open")
+    ht_product = models.CharField(max_length=15, choices=PRODUCT_CHOICES, default="other")
     
     def __str__(self):
         return "{0}-{1}-{2}".format(self.title, self.tag, self.post_status)

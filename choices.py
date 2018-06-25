@@ -8,3 +8,15 @@ ISSUE_STATUS_CHOICES = (
     ('pending', 'pending'),
     ('closed', 'closed')
     )    
+    
+    
+PRODUCT_CHOICES = (
+    ("multifamily", 'multifamly'),
+    ('multi-tenant', 'multi-tenant'),
+    ('mixed-use', 'mixed-use'),
+    ('campus', 'campus'),
+    ('developer', 'developer'),
+    ('note', 'note'),
+    ('other', 'other'),
+    ('website', 'website')
+    )    

@@ -16,9 +16,11 @@
         <h3>{{ post.title }}</h3>
         <div class="row">
             <div class="col=xs-12">
+                <h4> Product: {{ post.ht_product  }}</h4>
+                <hr>
                 <p> {{ post.content }}</p>
                 <p><span class="boldtext">Published on: </span>{{ post.published_date }} </p>
-                <a href="{% url 'get_posts' %}" class="btn btn-default">Back To Blog</a>
+                <a href="{% url 'get_posts' %}" class="btn btn-default">Back To Posts</a>
                 {% if post.author == user and post.post_status != "pending" %}    
                     <a href="{% url 'edit_post' post.id %}" class="btn btn-default">Edit Post</a>
                 {% endif %}    
@@ -40,7 +42,9 @@
                         <p>{{comment.comment}}</p>
                         <p class="italictext">Posted on: {{ comment.comment_created_date }}</p>
                         {% if comment.author == user %}
-                        <a href="{% url 'edit_comment' comment.pk %}" class="btn btn-default">Edit this comment</a> {% endif %}
+                        <a href="{% url 'edit_comment' comment.pk %}" class="btn btn-default">Edit this comment</a> 
+                        <a href="{% url 'del_comment' comment.pk %}" class="btn btn-default">Delete this comment</a> 
+                        {% endif %}
                     </div>
                 </div>
                 {% endfor %}

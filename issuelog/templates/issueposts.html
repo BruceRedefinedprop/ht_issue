@@ -21,6 +21,8 @@
     </div>
         <div class="col-md-10 col-sm-9">
         <h3>{{ post.title }}</h3>
+        <h4> Product: {{ post.ht_product  }}</h4>
+        <hr>
         <div class="row">
             <div class="col-xs-12">
                 <p>{{ post.content|truncatewords:30 }}</p>
@@ -32,7 +34,7 @@
     </div>
     {% endif %}
 {% endfor %}
-
+<hr>
 <h3>Reported Bugs</h3>
 {% for post in posts %} 
     {% if post.tag == "bug" %}

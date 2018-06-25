@@ -18,7 +18,6 @@
             <div class="">
                 <select name="rating" id="rating" >
                     <option value=1 {% if rate <= 2 %} selected  {% endif %}> Minor </option> 
-                   
                     <option value=3 {% if rate > 2 and rate <= 3.5   %}  selected  {% endif %}> Good to have </option>
                     <option value=5 {% if rate >  3.5   %} selected  {% endif %}> Must have </option>
                 </select>  
