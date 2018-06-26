@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load bootstrap_tags %}
+
+{% block head_js %}
+<script src="https://code.highcharts.com/highcharts.src.js"></script>
+{% load chartit %}
+{{ top_features_data|load_charts:"feature_cht" }}
+{% endblock %} 
+
+{% block content %}
+<h1>Road Map</h1>
+<h3>Top Five Featuers </h3>
+{% for post in posts_feature %} 
+<div class="row">
+    <div class="col-md-10 col-sm-9">
+        <h3>{{ post.title }}</h3>
+        <p> Product: {{ post.ht_product  }}</p>
+        <p>{{ posts_feature.tag }}</p>
+        <p>Rating: {{ post.rating }} / Votes: {{ post.votes }}</p>
+        <hr>
+    </div>
+</div>
+{% endfor %}
+<hr>
+<h3>Top Five Bugs </h3>
+{% for post in post_bugs %} 
+<div class="row">
+    <div class="col-md-10 col-sm-9">
+        <h3>{{ post.title }}</h3>
+        <p> Product: {{ post.ht_product  }}</p>
+        <p>{{ posts_feature.tag }}</p>
+        <p>Rating: {{ post.rating }} / Votes: {{ post.votes }}</p>
+        <hr>
+    </div>
+</div>
+{% endfor %}
+
+<div  id='feature_cht'>
+    <h2>Features chart</h2>
+    
+</div>
+
+
+
+{% endblock %}
