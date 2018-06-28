@@ -1,16 +1,16 @@
 from bootstrap_datepicker_plus import DatePickerInput
 from django import forms
-from .models import Post, Comment
+from .models import Issue, Comment
 
 
 class IssuePostForm(forms.ModelForm):
     class Meta:
-        model = Post
+        model = Issue
         fields =   ( 'title','ht_product','published_date','content', 'image', 'tag' )
         widgets = {'published_date' : DatePickerInput() }
 
 class IssueCommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ('post', 'comment')
+        fields = ('issue', 'comment')
   

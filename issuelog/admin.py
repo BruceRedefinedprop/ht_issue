@@ -1,16 +1,16 @@
 from django.contrib import admin
-from .models import Post, Comment
+from .models import Issue, Comment
 
 # Register your models here.
 
-# admin.site.register(Post)
+# admin.site.register(Issue)
 # admin.site.register(Comment)
 
 
 class CommentAdmin(admin.TabularInline):
     model = Comment
     
-class PostAdmin(admin.ModelAdmin):
+class IssueAdmin(admin.ModelAdmin):
     inlines = (CommentAdmin, )
     
-admin.site.register(Post, PostAdmin)
+admin.site.register(Issue, IssueAdmin)

@@ -7,7 +7,7 @@ from .models import Product
 class ProductTests(TestCase):
     """
     Here we'll define the tests
-    that we'll run against our Post models
+    that we'll run against our   models
     """
     
     def test_str(self):

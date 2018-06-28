@@ -3,30 +3,30 @@
 {% block content %} 
 
 <h1>Customer Feedback</h1>
-<p><a href="{% url 'new_post' %}" class="btn btn-default">New Post</a></p>
+<p><a href="{% url 'new_issue' %}" class="btn btn-default">New Post</a></p>
 
 <h3>Requested Features</h3>
-{% for post in posts %} 
-    {% if post.tag == "feature" %}
+{% for issue in issues %} 
+    {% if issues.tag == "feature" %}
     <div class="row">
         <div class="col-md-2 col-sm-3 text-center">
         <div class="story-img">
-            <img src="{% gravatar_url post.author.email %}" class='img-circle'></img>
+            <img src="{% gravatar_url issue.author.email %}" class='img-circle'></img>
         </div>
-        <p><span class="boldtext">Author: </span> {{ post.author }}</p>
-        <p><span class="boldtext">Tag :</span> {{ post.tag }}</p>
-        <p><span class="boldtext">Status: </span> {{ post.post_status }}</p>
-        <p><span class="boldtext">Rating: </span> {{post.rating}} / <span class="boldtext">Votes: </span>{{post.votes}} </p>
+        <p><span class="boldtext">Author: </span> {{ issue.author }}</p>
+        <p><span class="boldtext">Tag :</span> {{ issue.tag }}</p>
+        <p><span class="boldtext">Status: </span> {{ issue.issue_status }}</p>
+        <p><span class="boldtext">Rating: </span> {{issue.rating}} / <span class="boldtext">Votes: </span>{{issue.votes}} </p>
     </div>
         <div class="col-md-10 col-sm-9">
-        <h3>{{ post.title }}</h3>
-        <h4> Product: {{ post.ht_product  }}</h4>
+        <h3>{{ issue.title }}</h3>
+        <h4> Product: {{ issue.ht_product  }}</h4>
         <hr>
         <div class="row">
             <div class="col-xs-12">
-                <p>{{ post.content|truncatewords:30 }}</p>
-                <p><a href="{% url 'post_detail' post.id %}" class="btn btn-default">Read more</a></p>
-                <p><span class="boldtext">Published on: </span>{{ post.published_date }} </p>
+                <p>{{ issue.content|truncatewords:30 }}</p>
+                <p><a href="{% url 'issue_detail' issue.id %}" class="btn btn-default">Read more</a></p>
+                <p><span class="boldtext">Published on: </span>{{ issue.published_date }} </p>
             </div>
         </div>
     </div>
@@ -35,25 +35,25 @@
 {% endfor %}
 <hr>
 <h3>Reported Bugs</h3>
-{% for post in posts %} 
-    {% if post.tag == "bug" %}
+{% for issue in issues %} 
+    {% if issue.tag == "bug" %}
     <div class="row">
             <div class="col-md-2 col-sm-3 text-center">
         <div class="story-img">
-            <img src="{% gravatar_url post.author.email %}" class='img-circle'></img>
+            <img src="{% gravatar_url issue.author.email %}" class='img-circle'></img>
         </div>
-        <p><span class="boldtext">Author: </span> {{ post.author }}</p>
-        <p><span class="boldtext">Tag :</span> {{ post.tag }}</p>
-        <p><span class="boldtext">Status: </span> {{ post.post_status }}</p>
-        <p><span class="boldtext">Rating: </span> {{post.rating}} / <span class="boldtext">Votes: </span>{{post.votes}} </p>
+        <p><span class="boldtext">Author: </span> {{ issue.author }}</p>
+        <p><span class="boldtext">Tag :</span> {{ issue.tag }}</p>
+        <p><span class="boldtext">Status: </span> {{ issue.issue_status }}</p>
+        <p><span class="boldtext">Rating: </span> {{issue.rating}} / <span class="boldtext">Votes: </span>{{issue.votes}} </p>
     </div>
             <div class="col-md-10 col-sm-9">
-        <h3>{{ post.title }}</h3>
+        <h3>{{ issue.title }}</h3>
         <div class="row">
             <div class="col-xs-12">
-                <p>{{ post.content|truncatewords:30 }}</p>
-                <p><a href="{% url 'post_detail' post.id %}" class="btn btn-default">Read more</a></p>
-                <p><span class="boldtext">Published on: </span>{{ post.published_date }} </p>
+                <p>{{ issue.content|truncatewords:30 }}</p>
+                <p><a href="{% url 'issue_detail' issue.id %}" class="btn btn-default">Read more</a></p>
+                <p><span class="boldtext">Published on: </span>{{ issue.published_date }} </p>
             </div>
         </div>
     </div>

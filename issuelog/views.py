@@ -1,57 +1,57 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
-from .models import Post, Comment
+from .models import Issue, Comment
 from .forms import  IssuePostForm, IssueCommentForm
 from django.contrib.auth.decorators import login_required
 
 @login_required
-def get_posts(request):
+def get_issues(request):
     """
-    get a list of post were published prior to now and
+    get a list of issue were published prior to now and
     render them to the 'issueposts.html' template
     """
-    posts = Post.objects.exclude(post_status = "closed").order_by('-published_date')
-    return render(request, 'issueposts.html', {'posts': posts})
+    issues = Issue.objects.exclude(issue_status = "closed").order_by('-published_date')
+    return render(request, 'issueposts.html', {'issues': issues})
 
 @login_required    
-def post_detail(request, pk):
+def issue_detail(request, pk):
     """
     return a singe post based on post.id from issueposts.html's
     list.
     """
-    post = get_object_or_404(Post, pk=pk)
-    post.save()
-    return render(request, "post_detail.html", {'post': post})
+    issue = get_object_or_404(Issue, pk=pk)
+    issue.save()
+    return render(request, "issue_detail.html", {'issue': issue})
 
 @login_required
-def create_or_edit_post(request, pk=None):
-    post = get_object_or_404(Post, pk=pk) if pk else None
+def create_or_edit_issue(request, pk=None):
+    issue = get_object_or_404(Issue, pk=pk) if pk else None
     if request.method == "POST":
-        form = IssuePostForm(request.POST, request.FILES, instance=post)
+        form = IssuePostForm(request.POST, request.FILES, instance=issue)
         if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user  # update for data
+            issue = form.save(commit=False)
+            issue.author = request.user  # update for data
             if pk:
-                post.rating = ((post.rating * post.votes) - post.rating + int(request.POST["rating"]))/post.votes
+                issue.rating = ((issue.rating * issue.votes) - issue.rating + int(request.POST["rating"]))/issue.votes
             else:
-                post.rating = request.POST["rating"]
-                post.votes = 1
-                post.ht_product = request.POST["ht_product"]
+                issue.rating = request.POST["rating"]
+                issue.votes = 1
+                issue.ht_product = request.POST["ht_product"]
             form.save()  # save form to DB
             print("reached save")
             print("rating value: {0}".format(request.POST["rating"]))
             print("rating value: {0}".format(request.POST["ht_product"]))
-            return redirect(post_detail, post.pk)
+            return redirect(issue_detail, issue.pk)
         else:
             print("being redirect without saving")
-            return redirect(get_posts)
-    elif post:
+            return redirect(get_issues)
+    elif issue:
             print('post being edited')
             print("elif post")
-            print("{0}--{1}--{2}".format(post.id, post.title, post.content))
-            print(post.rating)
-            form = IssuePostForm(data = {'title': post.title, 'content': post.content, 'published_date': post.published_date, 'tag' : post.tag, 'image': post.image, 'ht_product': post.ht_product}, instance=post)  
-            return render(request, 'issuepostform.html', {'form': form, 'rate' : post.rating})    
+            print("{0}--{1}--{2}".format(issue.id, issue.title, issue.content))
+            print(issue.rating)
+            form = IssuePostForm(data = {'title': issue.title, 'content': issue.content, 'published_date': issue.published_date, 'tag' : issue.tag, 'image': issue.image, 'ht_product': issue.ht_product}, instance=issue)  
+            return render(request, 'issuepostform.html', {'form': form, 'rate' : issue.rating})    
             
     else:
             # new post
@@ -70,19 +70,19 @@ def create_or_edit_comment(request, pk=None):
             comment.author = request.user
             comment.rating = request.POST["rating"]
             print("comment rating {0}".format(comment.rating))
-            post = comment.post
+            issue = comment.issue
             if pk:
-                post.rating = ((post.rating * post.votes) - post.rating + int(request.POST["rating"]))/post.votes
-                post.save()
+                issue.rating = ((issue.rating * issue.votes) - issue.rating + int(request.POST["rating"]))/issue.votes
+                issue.save()
             else:
                 comment.rating = int(request.POST["rating"])
-                post.votes +=  1
-                post.rating = (post.rating + comment.rating)/post.votes
-                post.save()
+                issue.votes +=  1
+                issue.rating = (issue.rating + comment.rating)/issue.votes
+                issue.save()
             form.save()
-            return redirect(post_detail, comment.post.pk)
+            return redirect(issue_detail, comment.issue.pk)
     elif comment:
-        form = IssueCommentForm({'comment': comment.comment, 'post': comment.post}, instance=comment)
+        form = IssueCommentForm({'comment': comment.comment, 'issue': comment.issue}, instance=comment)
         return render(request, 'issuepostform.html', {'form': form, 'rate' : comment.rating }) 
     else:
         form = IssueCommentForm()
@@ -91,11 +91,11 @@ def create_or_edit_comment(request, pk=None):
 @login_required
 def del_comment(request, pk):  
     cur_comment =  get_object_or_404(Comment, pk=pk)
-    post = cur_comment.post
-    post.rating = ((post.rating * post.votes) - cur_comment.rating )/(post.votes-1)
-    post.votes = post.votes - 1
-    post.save()
+    issue = cur_comment.issue
+    issue.rating = ((issue.rating * issue.votes) - cur_comment.rating )/(issue.votes-1)
+    issue.votes = issue.votes - 1
+    issue.save()
     cur_comment.delete()
-    return render(request, "post_detail.html", {'post': post})
+    return render(request, "issue_detail.html", {'issue': issue})
     
         
