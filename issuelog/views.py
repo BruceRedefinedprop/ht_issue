@@ -11,6 +11,7 @@ def get_issues(request):
     render them to the 'issueposts.html' template
     """
     issues = Issue.objects.exclude(issue_status = "closed").order_by('-published_date')
+    print(issues)
     return render(request, 'issueposts.html', {'issues': issues})
 
 @login_required    

@@ -1,9 +1,144 @@
-{% extends 'base.html'%}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="{% static 'ico/favicon.ico' %}">
 
-{% block content %}
-<br>
-<br>
-<br>
-<h1>Home Index Page</h1>
+    <title>Harry's Tools</title>
 
-{% endblock %}
+
+    <!-- Bootstrap core CSS -->
+    <!--<link href="assets/css/bootstrap.css" rel="stylesheet">-->
+    <!--<link href="assets/css/font-awesome.min.css" rel="stylesheet">-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cerulean/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.min.css' %}">
+    
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <!--<link href="assets/css/main.css" rel="stylesheet">-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    {% block head_js %}
+    {% endblock head_js %}
+
+
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Harry Tool's</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="active"><a href="/">HOME</a></li>
+            <li><a href="#">ABOUT</a></li>
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'products' %}">PRODUCTS</a></li>
+            <li><a href="{% url 'get_issues' %}">FEEDBACK</a></li>
+            <li><a href="{% url 'roadmap' %}">ROADMAP</a></li>
+            <li><a href="{% url 'logout' %}">LOG OUT</a></li>
+            {% else  %}
+            <li><a href="{% url 'login' %}">SIGN IN</a></li>
+            <li><a href="{% url 'register' %}">REGISTER</a></li>
+            {% endif %}
+            <li><a data-toggle="modal" data-target="#myModal" href="#myModal"><i class="fa fa-envelope-o"></i></a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+	<div id="headerwrap">
+		<div class="container">
+			<div class="row centered">
+				<div class="col-lg-9 col-lg-offset-2">
+				<h1>Better's Tools to Manage your Complex Investments</h1>
+				<h2>... and Easier to Use</h2>
+				</div>
+			</div><!-- row -->
+		</div><!-- container -->
+	</div><!-- headerwrap -->
+
+
+	<div class="container ">
+		<div class="row centered">
+			<br><br>
+			<div class="col-lg-10 col-lg-offset-1">
+				<i class="fa fa-line-chart"></i>
+				<h4>Our Company</h4>
+				<p>Harry Tools goal is to provide tools to help family offices and high net worth individuals evaluate and manage their investments.    The Harry Tools is developing a growing series of apps that enables our customers to evaluate complex investments opportunities such as purchases of investment real estate, derivatives and brokerage accounts.   It is our long-term goal to build an integrated asset manager that tracks your net worth across assets classes and platforms.     As new tools are developed they will be added to our platform.</p>
+			</div><!-- col-lg-10 -->
+
+
+		</div><!-- row -->
+		<br>
+		<br>
+	</div><!-- container -->
+
+
+
+	<!-- FOOTER -->
+	<div id="f">
+		<div class="container">
+			<div class="row centered">
+				<a href="https://www.twitter.com"><i class="fa fa-twitter"></i></a><a href="https://www.facebook.com"><i class="fa fa-facebook"></i></a><a href="https://wsj.com"><i class="fa fa-bar-chart"></i></a>
+		
+			</div><!-- row -->
+		</div><!-- container -->
+	</div><!-- Footer -->
+
+
+	<!-- MODAL FOR CONTACT -->
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	        <h4 class="modal-title" id="myModalLabel">contact us</h4>
+	      </div>
+	      <div class="modal-body">
+					<div class="row centered">
+						<p>Any questions, don't hesitate to contact us.</p>
+						<p>
+							Harry's Tools, Randolph,  NJ 07869 USA.<br/> (973) 555-5555<br/> <a href="mailto:bruce@redefinedprop.com">harry@harrytools.com</a>
+						</p>
+						
+					</div>
+				</div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-danger" data-dismiss="modal">Save & Go</button>
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!--<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>-->
+    <!--<script src="assets/js/bootstrap.min.js"></script>-->
+  </body>
+</html>

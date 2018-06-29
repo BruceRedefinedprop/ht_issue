@@ -5,15 +5,21 @@
 <script src="https://code.highcharts.com/highcharts.src.js"></script>
 {% load chartit %}
 {{ chart_list|load_charts:"cht_top_features, cht_top_bugs" }}
+{% load render_table from django_tables2 %}
 {% endblock %} 
 
 {% block content %}
 <h1>Road Map</h1>
 <div class = 'row'>
-    
+    <div class="col-md-12 col-sm-12">
+        {% render_table roadmap_table %}
+    </div>
 </div>
 
-<h3>Top Five Featuers </h3>
+
+
+
+<h3>Top Five Features </h3>
 {% for issue in issues_feature %} 
 <div class="row">
     <div class="col-md-10 col-sm-9">

@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'issuelog',
     'chartit',
     'roadmap',
+    'django_tables2',
 ]
 
 MIDDLEWARE = [
