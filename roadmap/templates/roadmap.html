@@ -16,42 +16,103 @@
     </div>
 </div>
 
+<br>
+<br>
 
 
 
-<h3>Top Five Features </h3>
-{% for issue in issues_feature %} 
-<div class="row">
-    <div class="col-md-10 col-sm-9">
-        <h3>{{ issue.title }}</h3>
-        <p> Product: {{ issue.ht_product  }}</p>
-        <p>{{ issue.tag }}</p>
-        <p>Rating: {{ issue.rating }} / Votes: {{ issue.votes }}</p>
-        <hr>
-    </div>
-</div>
-{% endfor %}
-<hr>
-<h3>Top Five Bugs </h3>
-{% for issue in issues_bugs %} 
-<div class="row">
-    <div class="col-md-10 col-sm-9">
-        <h3>{{ issue.title }}</h3>
-        <p> Product: {{ issue.ht_product  }}</p>
-        <p>{{ issue.tag }}</p>
-        <p>Rating: {{ issue.rating }} / Votes: {{ issue.votes }}</p>
-        <hr>
-    </div>
-</div>
-{% endfor %}
 
+<br>
 <div  id='cht_top_features'>
     <h2>Features chart</h2>
 </div>
+<br><br>
+<h3>Top Five Requested Features </h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Title</th>
+            <th>Rating</th>
+            <th>Votes</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for issue in issues_feature %} 
+            <tr>
+                <td>{{ issue.ht_product  }}</td>
+                <td>{{ issue.title }}</td>
+                <td>{{ issue.rating }}</td>
+                <td>{{ issue.votes }}</td>
+                <td><a href="{% url 'issue_detail' issue.id %}" class="btn btn-primary btn-xs">Read more</a></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
+
+<!--{% for issue in issues_feature %} -->
+<!--<div class="row">-->
+<!--    <div class="col-md-10 col-sm-9">-->
+<!--        <h3>{{ issue.title }}</h3>-->
+<!--        <p> Product: {{ issue.ht_product  }}</p>-->
+<!--        <p>{{ issue.tag }}</p>-->
+<!--        <p>Rating: {{ issue.rating }} / Votes: {{ issue.votes }}</p>-->
+<!--        <hr>-->
+<!--    </div>-->
+<!--</div>-->
+<!--{% endfor %}-->
+<hr>
+<br>
+<br>
+
+<br>
 <div  id='cht_top_bugs'>
-    <h2>Bugs chart</h2>
+     
 </div>
+<br><br>
+<h3>Top Five Bugs Fixes Requested </h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Title</th>
+            <th>Rating</th>
+            <th>Votes</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for issue in issues_bugs %} 
+            <tr>
+                <td>{{ issue.ht_product  }}</td>
+                <td>{{ issue.title }}</td>
+                <td>{{ issue.rating }}</td>
+                <td>{{ issue.votes }}</td>
+                <td><a href="{% url 'issue_detail' issue.id %}" class="btn btn-primary btn-xs">Read more</a></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+<!--{% for issue in issues_bugs %} -->
+
+<!--<div class="row">-->
+<!--    <div class="col-md-10 col-sm-9">-->
+<!--        <h3>{{ issue.title }}</h3>-->
+<!--        <p> Product: {{ issue.ht_product  }}</p>-->
+<!--        <p>{{ issue.tag }}</p>-->
+<!--        <p>Rating: {{ issue.rating }} / Votes: {{ issue.votes }}</p>-->
+<!--        <hr>-->
+<!--    </div>-->
+<!--</div>-->
+<!--{% endfor %}-->
+
+
+
+
 
 
 

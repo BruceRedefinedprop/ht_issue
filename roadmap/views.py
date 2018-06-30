@@ -46,7 +46,7 @@ def roadmap(request):
                   }}],
             chart_options =
               {'title': {
-                   'text': 'Top 5 Features Requested'},
+                   'text': 'Top Five Features Requested'},
                 'xAxis' : { 
                     'title' : {'text' : "Top Features"}
                 },   
@@ -65,7 +65,7 @@ def roadmap(request):
                   }}],
             chart_options =
               {'title': {
-                   'text': 'Top 5 Bugs Requested'},
+                   'text': 'Top Five Bugs Fixes Requested'},
                 'xAxis' : { 
                     'title' : {'text' : "Top Bugs"}
                 },   
@@ -75,5 +75,4 @@ def roadmap(request):
                        
                        
 
-    return render(request, "roadmap.html" , {'roadmap_table': roadmap_table, 'issues_feature': features, 'issues_bugs': bugs, 
-        'chart_list' : [cht_top_features, cht_top_bugs]})
+    return render(request, "roadmap.html" , {'roadmap_table': roadmap_table, 'issues_feature': features, 'issues_bugs': bugs, 'chart_list' : [cht_top_features, cht_top_bugs]})

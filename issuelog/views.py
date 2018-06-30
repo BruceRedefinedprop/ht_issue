@@ -3,6 +3,8 @@ from django.utils import timezone
 from .models import Issue, Comment
 from .forms import  IssuePostForm, IssueCommentForm
 from django.contrib.auth.decorators import login_required
+from django_tables2 import RequestConfig
+from .tables import  FeaturesTable, BugsTable
 
 @login_required
 def get_issues(request):
@@ -11,8 +13,17 @@ def get_issues(request):
     render them to the 'issueposts.html' template
     """
     issues = Issue.objects.exclude(issue_status = "closed").order_by('-published_date')
+    features = Issue.objects.exclude(issue_status = "closed").filter(
+        tag = "feature").order_by('-published_date')
+        
+    bugs = Issue.objects.exclude(issue_status = "closed").filter(
+        tag = "bug").order_by('-published_date')    
     print(issues)
-    return render(request, 'issueposts.html', {'issues': issues})
+    features_table = FeaturesTable(features)
+    bugs_table = BugsTable(bugs)
+    RequestConfig(request).configure(features_table)
+    RequestConfig(request).configure(bugs_table)
+    return render(request, 'issueposts.html', {'issues': issues, "features_table":features_table,"bugs_table": bugs_table})
 
 @login_required    
 def issue_detail(request, pk):

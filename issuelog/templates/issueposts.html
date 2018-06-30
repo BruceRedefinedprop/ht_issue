@@ -1,64 +1,81 @@
 {% extends 'base.html' %} 
 {% load gravatar %} 
 {% block content %} 
+{% load render_table from django_tables2 %}
 
 <h1>Customer Feedback</h1>
-<p><a href="{% url 'new_issue' %}" class="btn btn-default">New Post</a></p>
-
+<p>Please feel to request a feature or report a problem with an existing product.  You also add your own
+voice to existing request by clicking on feature request or bug report and entering your own comments
+and thoughts.</p>
+<p><a href="{% url 'new_issue' %}" class="btn btn-warning">New Issue or Bug</a></p>
+<br>
 <h3>Requested Features</h3>
-{% for issue in issues %} 
-    {% if issue.tag == "feature" %}
-    <div class="row">
-        <div class="col-md-2 col-sm-3 text-center">
-        <div class="story-img">
-            <img src="{% gravatar_url issue.author.email %}" class='img-circle'></img>
-        </div>
-        <p><span class="boldtext">Author: </span> {{ issue.author }}</p>
-        <p><span class="boldtext">Tag :</span> {{ issue.tag }}</p>
-        <p><span class="boldtext">Status: </span> {{ issue.issue_status }}</p>
-        <p><span class="boldtext">Rating: </span> {{issue.rating}} / <span class="boldtext">Votes: </span>{{issue.votes}} </p>
+<div class = 'row'>
+    <div class="col-md-12 col-sm-12">
+        {% render_table features_table %}
     </div>
-        <div class="col-md-10 col-sm-9">
-        <h3>{{ issue.title }}</h3>
-        <h4> Product: {{ issue.ht_product  }}</h4>
-        <hr>
-        <div class="row">
-            <div class="col-xs-12">
-                <p>{{ issue.content|truncatewords:30 }}</p>
-                <p><a href="{% url 'issue_detail' issue.id %}" class="btn btn-default">Read more</a></p>
-                <p><span class="boldtext">Published on: </span>{{ issue.published_date }} </p>
-            </div>
-        </div>
-    </div>
-    </div>
-    {% endif %}
-{% endfor %}
-<hr>
+</div>
+
+
+
+<!--{% for issue in issues %} -->
+<!--    {% if issue.tag == "feature" %}-->
+<!--    <div class="row">-->
+<!--        <div class="col-md-2 col-sm-3 text-center">-->
+<!--        <div class="story-img">-->
+<!--            <img src="{% gravatar_url issue.author.email %}" class='img-circle'></img>-->
+<!--        </div>-->
+<!--        <p><span class="boldtext">Author: </span> {{ issue.author }}</p>-->
+<!--        <p><span class="boldtext">Tag :</span> {{ issue.tag }}</p>-->
+<!--        <p><span class="boldtext">Status: </span> {{ issue.issue_status }}</p>-->
+<!--        <p><span class="boldtext">Rating: </span> {{issue.rating}} / <span class="boldtext">Votes: </span>{{issue.votes}} </p>-->
+<!--    </div>-->
+<!--        <div class="col-md-10 col-sm-9">-->
+<!--        <h3>{{ issue.title }}</h3>-->
+<!--        <h4> Product: {{ issue.ht_product  }}</h4>-->
+<!--        <hr>-->
+<!--        <div class="row">-->
+<!--            <div class="col-xs-12">-->
+<!--                <p>{{ issue.content|truncatewords:30 }}</p>-->
+<!--                <p><a href="{% url 'issue_detail' issue.id %}" class="btn btn-default">Read more</a></p>-->
+<!--                <p><span class="boldtext">Published on: </span>{{ issue.published_date }} </p>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    </div>-->
+<!--    {% endif %}-->
+<!--{% endfor %}-->
+<hr><br>
 <h3>Reported Bugs</h3>
-{% for issue in issues %} 
-    {% if issue.tag == "bug" %}
-    <div class="row">
-            <div class="col-md-2 col-sm-3 text-center">
-        <div class="story-img">
-            <img src="{% gravatar_url issue.author.email %}" class='img-circle'></img>
-        </div>
-        <p><span class="boldtext">Author: </span> {{ issue.author }}</p>
-        <p><span class="boldtext">Tag :</span> {{ issue.tag }}</p>
-        <p><span class="boldtext">Status: </span> {{ issue.issue_status }}</p>
-        <p><span class="boldtext">Rating: </span> {{issue.rating}} / <span class="boldtext">Votes: </span>{{issue.votes}} </p>
+<div class = 'row'>
+    <div class="col-md-12 col-sm-12">
+        {% render_table bugs_table %}
     </div>
-            <div class="col-md-10 col-sm-9">
-        <h3>{{ issue.title }}</h3>
-        <div class="row">
-            <div class="col-xs-12">
-                <p>{{ issue.content|truncatewords:30 }}</p>
-                <p><a href="{% url 'issue_detail' issue.id %}" class="btn btn-default">Read more</a></p>
-                <p><span class="boldtext">Published on: </span>{{ issue.published_date }} </p>
-            </div>
-        </div>
-    </div>
-        </div>
-    {% endif %}
-{% endfor %}
+</div>
+<!--{% for issue in issues %} -->
+<!--    {% if issue.tag == "bug" %}-->
+<!--    <div class="row">-->
+<!--            <div class="col-md-2 col-sm-3 text-center">-->
+<!--        <div class="story-img">-->
+<!--            <img src="{% gravatar_url issue.author.email %}" class='img-circle'></img>-->
+<!--        </div>-->
+<!--        <p><span class="boldtext">Author: </span> {{ issue.author }}</p>-->
+<!--        <p><span class="boldtext">Tag :</span> {{ issue.tag }}</p>-->
+<!--        <p><span class="boldtext">Status: </span> {{ issue.issue_status }}</p>-->
+<!--        <p><span class="boldtext">Rating: </span> {{issue.rating}} / <span class="boldtext">Votes: </span>{{issue.votes}} </p>-->
+<!--    </div>-->
+<!--            <div class="col-md-10 col-sm-9">-->
+<!--        <h3>{{ issue.title }}</h3>-->
+<!--        <div class="row">-->
+<!--            <div class="col-xs-12">-->
+<!--                <p>{{ issue.content|truncatewords:30 }}</p>-->
+<!--                <p><a href="{% url 'issue_detail' issue.id %}" class="btn btn-default">Read more</a></p>-->
+<!--                <p><span class="boldtext">Published on: </span>{{ issue.published_date }} </p>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--        </div>-->
+<!--    {% endif %}-->
+<!--{% endfor %}-->
 
 {% endblock %}
