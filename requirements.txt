@@ -4,6 +4,7 @@ boto3==1.7.30
 botocore==1.10.30
 chardet==2.2.1
 colorama==0.2.5
+dj-database-url==0.5.0
 django-bootstrap-datepicker-plus==3.0.4
 django-bootstrap3==10.0.1
 django-chartit==0.2.9
@@ -14,6 +15,7 @@ django-tables2==1.21.2
 docutils==0.14
 html5lib==0.999
 jmespath==0.9.3
+psycopg2==2.7.5
 pycurl==7.19.3
 python-dateutil==2.7.3
 pytz==2018.4
