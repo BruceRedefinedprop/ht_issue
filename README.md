@@ -23,10 +23,16 @@ The HT Issue tracker main modules from a programtic perspective are:
 # Key Technologies
 The application is built using the followng program stack.
 
+For the basic underlying program stack, I used:
+
 |Program | Notes
 |---|----
-|Python3.4|Main library
-|Django 1.11| Used same as course
+|python3.4|Main library
+|django 1.11| Used same as course
+|django-chartit| library to build highchart.js charts while using django model.
+|django-tables2| libary to build sortable and clickable tables2
+|stripe| An API and outside applicaiton for credit card processing. (it's live)
+|postgres| Database
 
 
 
