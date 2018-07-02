@@ -1,6 +1,14 @@
 from django.db import models
 from django.utils import timezone
 
+"""
+Product Manager table is used for admin purposes to track who
+makes an the roadmap entry.ArithmeticError
+
+The Roadmap table is used to track the release schedule of HT's products.
+
+"""
+
 # Create your models here.
 class Productmgr(models.Model):
     mgr = models.CharField(max_length=40)

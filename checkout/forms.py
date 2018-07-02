@@ -2,6 +2,12 @@ from django import forms
 from .models import Order
 
 class MakePaymentForm(forms.Form):
+    '''
+    Credit cart payment form and Order form.   Collects the details of the products
+    purchase, who bought them and their payment info.  form names are consistent
+    with Stripe's requirements.
+    '''
+
     
     MONTH_CHOICES = [(i, i) for i in range(1, 12)]
     YEAR_CHOICES = [(i, i) for i in range(2017, 2036)]

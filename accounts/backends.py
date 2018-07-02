@@ -12,9 +12,11 @@ class CaseInsensitiveAuth:
     the database.
     This will ensure all usernames have unique spellings, and as a result,
     our case insensitive query will return a single result only.
+    
+    Overloads existing django functions.
     """
     def authenticate(self, username_or_email=None, password=None):
-        """ru
+        """
         Get an instance of User using the supplied username
         or email (case insensitive) and verify the password
         """

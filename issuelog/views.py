@@ -10,19 +10,30 @@ from .tables import  FeaturesTable, BugsTable
 def get_issues(request):
     """
     get a list of issue were published prior to now and
-    render them to the 'issueposts.html' template
+    render them to the 'issueposts.html' template.  
+    
+    create separate tables for features and bug fix requests.
+    Only retrieve issues and comments for issues that are not closed.
+    
+
     """
+    # legacy code statement for testing and incremental development
     issues = Issue.objects.exclude(issue_status = "closed").order_by('-published_date')
+    
+    # create searches used to build tables
     features = Issue.objects.exclude(issue_status = "closed").filter(
         tag = "feature").order_by('-published_date')
         
     bugs = Issue.objects.exclude(issue_status = "closed").filter(
         tag = "bug").order_by('-published_date')    
     print(issues)
+    
+    # instantiate tables
     features_table = FeaturesTable(features)
     bugs_table = BugsTable(bugs)
     RequestConfig(request).configure(features_table)
     RequestConfig(request).configure(bugs_table)
+    
     return render(request, 'issueposts.html', {'issues': issues, "features_table":features_table,"bugs_table": bugs_table})
 
 @login_required    
@@ -37,15 +48,28 @@ def issue_detail(request, pk):
 
 @login_required
 def create_or_edit_issue(request, pk=None):
+    """
+    if editing an existing record, as identifed by the pk the primary key
+    for the issues, load existing data into the form and when POSTed, save the new
+    data.  If not, present a blank form and then save data.   pk is set to a default
+    of None.
+    """
+    # if record is available, retrieve it.
     issue = get_object_or_404(Issue, pk=pk) if pk else None
     if request.method == "POST":
+        # user POSTs form with edited data.
         form = IssuePostForm(request.POST, request.FILES, instance=issue)
         if form.is_valid():
+            # if form is valid update data. 
             issue = form.save(commit=False)
             issue.author = request.user  # update for data
             if pk:
+                # if pk exists, backout previous rating and recalculate using new rating
+                # it's a weighted avg multiply votes to rating to find total score
+                # then subtract one vote and add new vote to recalc
                 issue.rating = ((issue.rating * issue.votes) - issue.rating + int(request.POST["rating"]))/issue.votes
             else:
+                # if new issue, then add a single vote and rating
                 issue.rating = request.POST["rating"]
                 issue.votes = 1
                 issue.ht_product = request.POST["ht_product"]
@@ -55,24 +79,29 @@ def create_or_edit_issue(request, pk=None):
             print("rating value: {0}".format(request.POST["ht_product"]))
             return redirect(issue_detail, issue.pk)
         else:
+            # catchall, should never be reached.  Part of testing code.
             print("being redirect without saving")
             return redirect(get_issues)
     elif issue:
+            # user's initial GET request and record exists.
             print('post being edited')
             print("elif post")
             print("{0}--{1}--{2}".format(issue.id, issue.title, issue.content))
             print(issue.rating)
+            # put existing data in form
             form = IssuePostForm(data = {'title': issue.title, 'content': issue.content, 'published_date': issue.published_date, 'tag' : issue.tag, 'image': issue.image, 'ht_product': issue.ht_product}, instance=issue)  
+            # return form with data for display
             return render(request, 'issuepostform.html', {'form': form, 'rate' : issue.rating})    
             
     else:
-            # new post
+            # new post, create a blank form
             print('new post')
             form = IssuePostForm()
     return render(request, 'issuepostform.html', {'form': form})    
     
     
 @login_required
+# same logic as above.
 def create_or_edit_comment(request, pk=None):    
     comment = get_object_or_404(Comment, pk=pk) if pk else None
     if request.method == "POST":
@@ -102,11 +131,17 @@ def create_or_edit_comment(request, pk=None):
     
 @login_required
 def del_comment(request, pk):  
+    """
+    Delete a comment.
+    
+    """
     cur_comment =  get_object_or_404(Comment, pk=pk)
     issue = cur_comment.issue
+    # back out vote and adjustting ranking
     issue.rating = ((issue.rating * issue.votes) - cur_comment.rating )/(issue.votes-1)
     issue.votes = issue.votes - 1
-    issue.save()
+    issue.save() # save new votes and ranking
+    # remove comment from database
     cur_comment.delete()
     return render(request, "issue_detail.html", {'issue': issue})
     

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static from staticfiles %}
 {% load bootstrap_tags %}
-
+<!--Page is an entry form for stripe to personal and credit card info-->
 {% block head_js %}
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <script type="text/javascript">
@@ -14,6 +14,7 @@
 
 {% block content %}
 <div class="row row-flex">
+    <!--list cart contents-->
     {% for item in cart_items %}
     
     <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-6 col-md-4 display panel panel-default">
@@ -34,7 +35,7 @@
     <p> Total</p>
     <p><span aria-hidden="true"></span>${{ total }}</p>
 </div>
-
+<!--collect payment info-->
 <form role="form" method="post" id="payment-form" action="{% url 'checkout' %}">
     <legend>Payment Details</legend>
     <div id="credit-card-errors" style="display:none">

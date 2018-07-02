@@ -7,23 +7,33 @@ from chartit import DataPool, Chart
 from django_tables2 import RequestConfig
 from .tables import RoadmapTable, TopIssuesTable
 
+
+"""
+roadmap view builds table data required to show the product
+roadmap i.e. product release schedule, tables for top feature requests
+and bug fix requests.  The tables are built using django_tables2 and 
+charts are built using django-chartit.
+
+
+"""
 # Create your views here.
 @login_required
 def roadmap(request):
     # get query set for top five features
     features = Issue.objects.exclude(issue_status = "closed").filter(
         tag = "feature").order_by('-rating')[:5]
-   
     
     bugs =   Issue.objects.exclude(issue_status = "closed").filter(
         tag = "bug").order_by('-rating')[:5]  
     
-
-    
+    # retrieve roadmap data
     roadmap = Roadmap.objects.all()    
+    
+    #instantiate table
     roadmap_table = RoadmapTable(roadmap)
     RequestConfig(request).configure(roadmap_table)
 
+    # create Data objects for the charts
     top_features_data = DataPool( series = 
         [{'options' : { 'source' : features},'terms' : ['title', 'rating']
         }]
@@ -34,7 +44,7 @@ def roadmap(request):
         }]
         ) 
     
-        
+    # define chart options. We are creating charts.    
     cht_top_features = Chart(
             datasource = top_features_data,
             series_options =

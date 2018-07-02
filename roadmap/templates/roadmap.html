@@ -1,14 +1,18 @@
 {% extends "base.html" %}
 {% load bootstrap_tags %}
 
+<!--load Javascript for django-chartit -->
 {% block head_js %}
 <script src="https://code.highcharts.com/highcharts.src.js"></script>
 {% load chartit %}
+<!--Load charts-->
 {{ chart_list|load_charts:"cht_top_features, cht_top_bugs" }}
+<!--load JS for tables-->
 {% load render_table from django_tables2 %}
 {% endblock %} 
 
 {% block content %}
+<!--roadmap table-->
 <h1>Road Map</h1>
 <div class = 'row'>
     <div class="col-md-12 col-sm-12">
@@ -20,9 +24,10 @@
 <br>
 
 
-
+<!--Features table-->
 
 <br>
+<!--Features chart, loads chart based on id-->
 <div  id='cht_top_features'>
     <h2>Features chart</h2>
 </div>
@@ -68,10 +73,11 @@
 <br>
 
 <br>
-<div  id='cht_top_bugs'>
-     
-</div>
+
+<!--Bug chart-->
+<div  id='cht_top_bugs'></div>
 <br><br>
+<!--Bug table-->
 <h3>Top Five Bugs Fixes Requested </h3>
 <table class="table">
     <thead>

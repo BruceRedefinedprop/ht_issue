@@ -4,7 +4,8 @@ from products.models import Product
 
 def cart_contents(request):
     """
-    Ensures that the cart contents are available when rendering every page
+    Ensures that the cart contents are available when rendering every page.
+    context is used because cart only exists as long as the session is active.
     """
     
     cart = request.session.get('cart', {})

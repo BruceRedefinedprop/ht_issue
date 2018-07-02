@@ -2,7 +2,11 @@ from django.db import models
 from products.models import Product
 
 # Create your models here.
+"""
+Model for defining an order.  Order tracks who puchased the prouct.
+OrderLineItem model details item purchased.  It is tied to Order and Product models.
 
+"""
 class Order(models.Model):
     full_name = models.CharField(max_length=50, blank=False)
     phone_number = models.CharField(max_length=20, blank=False)

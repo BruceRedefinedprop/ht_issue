@@ -3,11 +3,12 @@
 {% load bootstrap_tags %}
 
 {% block content %}
+<!--Display products in the cart-->
 <div class="row row-flex">
     {% for item in cart_items %}
     
     <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-6 col-md-4 display panel panel-display">
-        
+        <!--Display product card-->
         <div class="product" style="background-image: url('{{ MEDIA_URL }}{{ item.product.image }}')"></div>
         
         <div class="caption">
@@ -15,7 +16,7 @@
             <p class="product-description">{{ item.product.description }}</p>
             <p>{{ item.product.price }}</p>
             <p>
-                
+                <!--form to display or change quanity in cart-->
                 <form class="form-inline" method="post" action="{% url 'adjust_cart' item.id %}">
                     {% csrf_token %}
                     <div class="form-group">
@@ -26,6 +27,7 @@
                             <div class="input-group-addon">{{item.quantity}}</div>
                         </div>
                     </div>
+                    <!--submit button to amend cart quantity.  See view function for logic-->
                     <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>Amend</button>
                 </form>
             </p>
@@ -33,6 +35,7 @@
     </div>
     {% endfor %}
 </div>
+<!--button to go to checkout-->
 <div class="row">
     <p>Total</p>
     <p><span  aria-hidden="true"></span>${{ total }}</p>
