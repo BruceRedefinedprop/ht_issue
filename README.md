@@ -89,7 +89,9 @@ If i using pycharm, I would have used breakpoints and watches, but I find the C9
 
 # deployment
 
-To deploy the system, I transition the applicaton to Heroku at.....
+To deploy the system, I transition the applicaton to Heroku at....
+
+Static files were moved AWS S3.   
 
 # Misc. Technical Notes
 
