@@ -1,4 +1,7 @@
 from django.shortcuts import render
+from django.contrib import messages
+from products.models import Product
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
 from django.shortcuts import render, redirect, reverse
@@ -18,13 +21,19 @@ def add_to_cart(request, id):
     cart[id] = cart.get(id, quantity)
     #reset cart values
     request.session['cart'] = cart
-    return redirect(reverse('index'))
+    product = get_object_or_404(Product, pk=id)
+    messages.add_message(request, messages.INFO, 'added %s.' % product.name  )
+    return redirect(reverse('products'))
     
     
 def adjust_cart(request, id):
     """Adjust the quantity of the specified product to the specified amount"""
     # .... add check, for quantity being a interger.  If not set quantity to zero....
-    quantity = int(request.POST.get('quantity'))
+    
+    try:
+        quantity = int(request.POST.get('quantity'))
+    except:
+        quantity = 0
     cart = request.session.get('cart', {})
     # readjust cart quantity
     if quantity > 0:

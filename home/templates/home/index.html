@@ -59,6 +59,14 @@
             <li><a href="{% url 'get_issues' %}">FEEDBACK</a></li>
             <li><a href="{% url 'roadmap' %}">ROADMAP</a></li>
             <li><a href="{% url 'logout' %}">LOG OUT</a></li>
+            <li>
+						<a href="{% url 'view_cart' %}">
+                            <i class="fa fa-shopping-cart"></i> Cart
+                            {% if product_count > 0 %}
+                            <label class="badge badge-warning">{{ product_count }}</label>
+                            {% endif %}
+                        </a>
+					</li>
             {% else  %}
             <li><a href="{% url 'login' %}">SIGN IN</a></li>
             <li><a href="{% url 'register' %}">REGISTER</a></li>
