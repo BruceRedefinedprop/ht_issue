@@ -14,8 +14,8 @@ from .models import Issue, Comment
 #         # Check that the response is 200 OK.
 #         self.assertEqual(response.status_code, 200)
 
-class ViewTests(TestCase):
-    def test1(self):
-        issues = Issue.objects.exclude(issue_status = "closed").order_by('-published_date')
-        self.assertIs(issues.count(), 10)
+# class ViewTests(TestCase):
+#     def test1(self):
+#         issues = Issue.objects.exclude(issue_status = "closed").order_by('-published_date')
+#         self.assertIs(issues.count(), 10)
         
