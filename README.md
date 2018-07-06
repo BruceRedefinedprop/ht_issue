@@ -82,6 +82,9 @@ the test approach is straight-forwards.
 * used test database where I knew the results
 * created a test plan to make sure all appropriate functionality was tested.
 
+I wrote test to verify models were set up correctly and views were reaching the right templates.  These test were focused on Roadmap, Issueslog and Home, since products and account code used patterns from the Code Institute course.
+
+
 If i using pycharm, I would have used breakpoints and watches, but I find the C9 debugger clunky.
 
 

@@ -1,14 +1,12 @@
-from django.test import TestCase
-
-# Test views function.
 import unittest
 from django.test import Client, TestCase
 from django.contrib import messages, auth
 from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from roadmap.models import Productmgr, Roadmap
 from django.contrib.auth.models import User
 
-class GethomeTest(TestCase):
+class GetRoadmapTest(TestCase):
     """
     Tests get issue view, by setting up user and testing if the page
     can be reached without logging in (should fail), with logging in and if the
@@ -34,8 +32,8 @@ class GethomeTest(TestCase):
         # Requires log in to reach page
         logedin = self.client.login(username='test', password='test1234')
         print("log in worked? ", logedin)
-        response = self.client.get(reverse('home_index'))
+        response = self.client.get(reverse('roadmap'))
         # Check that the response is 200 OK.
         self.assertEqual(response.status_code, 200)
         #check right template
-        self.assertTemplateUsed(response, 'home/index.html', 'base.html')   
+        self.assertTemplateUsed(response, 'roadmap/roadmap.html', 'base.html')    
