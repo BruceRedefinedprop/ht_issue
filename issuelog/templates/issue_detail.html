@@ -42,6 +42,7 @@
 
 
 {% block content %}
+    <div class="row"><h1>Issue's Detail</h1></div>
     <div class="row">
     <div class="col-md-2 col-sm-3 text-center">
         <div class="story-img">
@@ -54,12 +55,14 @@
         <p><span class="boldtext">Rating: </span> {{issue.rating}} / <span class="boldtext">Votes: </span>{{issue.votes}} </p>
     </div>
     <div class="col-md-10 col-sm-9">
-        {% if issue.image %}
-        <img class="img-blogpost" src="{{ MEDIA_URL }}{{ issue.image }}"> {% endif %}
-        <h3>{{ issue.title }}</h3>
+        
+        <h2>Issue: {{ issue.title }}</h2>
+        <p>Edit or Add a Comment.</p>
         <div class="row">
             <div class="col=xs-12">
-                <h4> Product: {{ issue.ht_product  }}</h4>
+                <h3> Product: {{ issue.ht_product  }}</h3>
+                {% if issue.image %}
+        <img class="img-blogpost" src="{{ MEDIA_URL }}{{ issue.image }}"> {% endif %}
                 <hr>
                 <p> {{ issue.content }}</p>
                 <p><span class="boldtext">Published on: </span>{{ issue.published_date }} </p>

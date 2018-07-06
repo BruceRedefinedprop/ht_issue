@@ -42,13 +42,19 @@
 
 
 {% block content %}
+<h1>Our Products</h1>
+<br>
+
 <div class="display">
     <form action="{% url 'search' %}" method="get">
         <input type="text" name="q">
         <button type="submit">Search</button>
+        <p>search by name for products</p>
     </form>
 </div>
+<p>Harry Tools offer a variety of financial model toosl to help you evaluate the following commerical real estate and financial investments.</p>
 <div class="row row-flex">
+    
     {% for product in products %}
 
     <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-6 col-md-4 display panel panel-default">

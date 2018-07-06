@@ -47,12 +47,12 @@
 {% load render_table from django_tables2 %}
 
 <h1>Customer Feedback</h1>
-<p>Please feel to request a feature or report a problem with an existing product.  You also add your own
-voice to existing request by clicking on feature request or bug report and entering your own comments
+<p>Please feel to request a feature or report a problem with an existing product.  You also add your own voice to existing request by clicking on feature request or bug report and entering your own comments
 and thoughts.</p>
 <p><a href="{% url 'new_issue' %}" class="btn btn-warning">New Issue or Bug</a></p>
 <br>
 <h3>Requested Features</h3>
+<p>Below is a list a features requests that can sorted by title, product, status or date. A feature represents a new or improved capability. </p>
 <div class = 'row'>
     <div class="col-md-12 col-sm-12">
         {% render_table features_table %}
@@ -90,6 +90,7 @@ and thoughts.</p>
 <!--{% endfor %}-->
 <hr><br>
 <h3>Reported Bugs</h3>
+<p>Below is a list of bugs that need to be fixed. A bug is an existing feature that does not work as you would expect.</p>
 <div class = 'row'>
     <div class="col-md-12 col-sm-12">
         {% render_table bugs_table %}
