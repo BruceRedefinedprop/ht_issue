@@ -82,21 +82,34 @@ the test approach is straight-forwards.
 * used test database where I knew the results
 * created a test plan to make sure all appropriate functionality was tested.
 
-I wrote test to verify models were set up correctly and views were reaching the right templates.  These test were focused on Roadmap, Issueslog and Home, since products and account code used patterns from the Code Institute course.
+I wrote test to verify models were set up correctly and views were reaching the right templates.  These test were focused on Roadmap, Issueslog and Home, since products and account code used patterns from the Code Institute course.  Print statements and inspection of JS console where also used to check that code was producing the correct results and that we had errors loading various files.
+
+### Test Database
+While application is built using Postgres hosted on Heroku, all automated tests using sqlite database with similar test data, i.e. database contents, but different from the production system.
+
+### Test Log
+see test log document in design_docs folder.
+
 
 
 If i using pycharm, I would have used breakpoints and watches, but I find the C9 debugger clunky.
 
-
+JsHint was not used to test javascript / Jquery because that javascript that was used were libraries that were tested by their authors and demonstrated as such on Github.  Any custom javascript create is limited and very straight and designed with a well known pattern to aid an existing library.  Moving forward, when I am using Jquery, I plan on integrating Qunit into my process.
 
 
 # deployment
 
-To deploy the system, I transition the applicaton to Heroku at....
+To deploy the system, I transition the applicaton to Heroku at https://ht-issuelog.herokuapp.com.
+All important keys are loaded directly Heroku config variables.  Heroku is connected with Github, so for every new push, Heroku is updated.  After each update, I review the Heroku logs and test the website manually.  Also, I used  Travis.  Travis passes when I comment out the import env in ht_issue/settings.py.  The file env.py, as mentioned before holds various tokens and security keys and need run the program in C9.
 
-Static files were moved AWS S3.   
+Static files were moved AWS S3. 
+
+debug is set to False.
+
+
 
 # Misc. Technical Notes
+The program does contain some commented out code for the purposes of demonstrating test code.
 
 
 ## Credit card Stripe Test
