@@ -106,3 +106,5 @@ Some known issues are:
 + about link is a dummy and not set
 + On Feedback page, the django-datatable2 generated tables headers can be sticky and sometimes require a fast double click before they sort a row.
 + In login - forget password, does not send a real email, only a message to the console.
++ Can't the function test_issueEdit issuelog/tests/test_views.py to work.  But imperically the appcation works fine.
++  A number of tests are know designed to fail.  However, a few of tests such as FAIL: test_getissuepage (issuelog.tests.test_views.GetIssueTest) because helpers such as django_tables2 are added to list of templates used. technically the test fails, but if you read deeper, the right template is being returned.

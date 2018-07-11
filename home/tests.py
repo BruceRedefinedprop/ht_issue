@@ -33,7 +33,7 @@ class GethomeTest(TestCase):
     def test_getroadmappage(self):
         # Requires log in to reach page
         logedin = self.client.login(username='test', password='test1234')
-        print("log in worked? ", logedin)
+
         response = self.client.get(reverse('home_index'))
         # Check that the response is 200 OK.
         self.assertEqual(response.status_code, 200)

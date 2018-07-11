@@ -33,14 +33,14 @@ class GetIssueTest(TestCase):
     def test_getissuepage(self):
         # Requires log in to reach page
         logedin = self.client.login(username='test', password='test1234')
-        print("log in worked? ", logedin)
+        
         response = self.client.get(reverse('get_issues'))
         # Check that the response is 200 OK.
         self.assertEqual(response.status_code, 200)
         #check right template
         self.assertTemplateUsed(response, 'issuelog/issueposts.html', 'base.html')
 
-class UserFormTest(TestCase):
+class IssueDetailCreateEditTest(TestCase):
     def setUp(self):
         self.client = Client()
         user = User.objects.create(username='test')
@@ -48,12 +48,35 @@ class UserFormTest(TestCase):
         user.save()
         Issue.objects.create(title="test 1", author = user, 
             issue_status = "open")
-
-    def test_issueform_valid(self):
+        
+    def test_issuedetail(self):
+        """
+        test creating a issue detail page.  create a object above 
+        retireve it and get tempalte. 
+        """
         logedin = self.client.login(username='test', password='test1234')
         issue=Issue.objects.get(id=1)
-        form = IssuePostForm(data = {'title': issue.title, 'content': issue.content, 'published_date': issue.published_date, 'tag' : issue.tag, 'image': issue.image, 'ht_product': issue.ht_product}, instance=issue)
-        self.assertTrue(form.is_valid())
-
+        response = self.client.get('/issue/1/')        
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'issue_detail.html', 'base.html')
         
-      
+    def test_issueCreate(self):
+        logedin = self.client.login(username='test', password='test1234')
+        issue=Issue.objects.get(id=1)
+        response = self.client.get('/issue/new/')
+        form = IssuePostForm() 
+        self.assertTemplateUsed(response, 'issuepostform.html')
+        
+    def test_issueGetDetail(self):
+        logedin = self.client.login(username='test', password='test1234')
+        issue=Issue.objects.get(id=1)
+        response = self.client.post('/issue/1/')
+        issue=Issue.objects.get(id=1)
+        self.assertEqual(response.status_code, 200)
+    
+    def test_issueEdit(self):
+        logedin = self.client.login(username='test', password='test1234')
+        issue=Issue.objects.get(id=1)
+        response = self.client.post('/issue/1/edit')        
+        print(response)
+        self.assertTemplateUsed(response, 'issuepostform.html')

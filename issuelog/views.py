@@ -26,7 +26,7 @@ def get_issues(request):
         
     bugs = Issue.objects.exclude(issue_status = "closed").filter(
         tag = "bug").order_by('-published_date')    
-    print(issues)
+    # print(issues)
     
     # instantiate tables
     features_table = FeaturesTable(features)
@@ -74,20 +74,20 @@ def create_or_edit_issue(request, pk=None):
                 issue.votes = 1
                 issue.ht_product = request.POST["ht_product"]
             form.save()  # save form to DB
-            print("reached save")
-            print("rating value: {0}".format(request.POST["rating"]))
-            print("rating value: {0}".format(request.POST["ht_product"]))
+            # print("reached save")
+            # print("rating value: {0}".format(request.POST["rating"]))
+            # print("rating value: {0}".format(request.POST["ht_product"]))
             return redirect(issue_detail, issue.pk)
         else:
             # catchall, should never be reached.  Part of testing code.
-            print("being redirect without saving")
+            # print("being redirect without saving")
             return redirect(get_issues)
     elif issue:
             # user's initial GET request and record exists.
-            print('post being edited')
-            print("elif post")
-            print("{0}--{1}--{2}".format(issue.id, issue.title, issue.content))
-            print(issue.rating)
+            # print('post being edited')
+            # print("elif post")
+            # print("{0}--{1}--{2}".format(issue.id, issue.title, issue.content))
+            # print(issue.rating)
             # put existing data in form
             form = IssuePostForm(data = {'title': issue.title, 'content': issue.content, 'published_date': issue.published_date, 'tag' : issue.tag, 'image': issue.image, 'ht_product': issue.ht_product}, instance=issue)  
             # return form with data for display
@@ -95,7 +95,7 @@ def create_or_edit_issue(request, pk=None):
             
     else:
             # new post, create a blank form
-            print('new post')
+            # print('new post')
             form = IssuePostForm()
     return render(request, 'issuepostform.html', {'form': form})    
     

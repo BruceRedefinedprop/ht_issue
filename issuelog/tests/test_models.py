@@ -127,7 +127,7 @@ class CommentModelTest(TestCase):
     def test_failrate_label(self):
         issue=Issue.objects.get(id=1)
         
-        field3 = issue._meta.get_field('rating').default
+        field3 = issue._meta.get_field('rating').decimal_places
         self.assertEquals(field3, 1)     
         
     def test_rate_label(self):
